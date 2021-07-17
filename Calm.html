@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+ <head>
+  <meta charset=UTF-8">
+  <title>Calm Down</title>
+ </head>
+
+ <body>
+
+  <style>
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+.container {
+width: 100vw;
+height: 100vh;
+background: linear-gradient(to bottom, rgba(0, 5, 99, 1), rgba(63, 64, 99, 1));
+overflow: hidden;
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.ball {
+border-radius: 100%;
+background: white;
+position: absolute;
+animation-name: up;
+animation-duration: 20s;
+animation-iteration-count: infinite;
+animation-fill-mode: forwards;
+transition: 0.5s all ease-in-out;
+
+}
+
+@keyframes up {
+0% {transform: translateY(0%);}
+50% {transform: translateY(-500%);}
+100% {transform: translateY(0%);}
+}
+
+.container input,
+.container button {
+width: 30vw;
+height: 5vh;
+border: none;
+border-radius: 20px;
+transform: translateY(-500%);
+text-align: center;
+transition: 0.3s ease-in-out;
+z-index: 100;
+}
+
+.container button {
+width: 10vw;
+cursor: pointer;
+focuse: none;
+}
+
+.container button:hover {
+box-shadow: 0px 2px 3px grey;
+background: rgba(0, 0, 0, 0.1);
+color: white;
+}
+
+.container input:focus {
+outline: none;
+}
+
+.fader {
+position: absolute;
+left: 50%;
+tob: 20%;
+transform: translate(-50%, -50%);
+width: 150px;
+height: 150px;
+border-radius: 100%;
+background: white;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 46px;
+animation-name: theFade;
+animation-duration: 60s;
+transition: 60s ease-in-out;
+animation-fill-mode: forwards;
+}
+
+@keyframes theFade {
+0% {
+opacity: 1;
+transform: scale(1) translate(-50%, -50%);
+}
+
+100% {
+opacity: 0;
+transform: scale(0.1) translate(-50%, -500%);
+}
+}
+
+
+  </style>
+
+  <div class="container">
+
+   <input placeholder="What bothers you?" id="inputValue" value=""></input>
+   <button id="btn" onclick="clearBother()">Submit</button>
+
+  </div>
+
+  <script>
+
+runIt();
+function runIt() {
+
+var contain = document.querySelector(".container");
+var i = 0;
+while (i < 300) {
+var element = document.createElement("div");
+element.classList.add("ball");
+contain.appendChild(element);
+var counter = document.getElementsByTagName("div").length;
+var randomSize = Math.floor(Math.random() * 10) + 1;
+var randomOpacity = Math.random();
+var randomleft = Math.floor(Math.random() * 1500) + 1;
+var randomright = Math.floor(Math.random() * 1000) + 1;
+element.style.width = randomSize + "px";
+element.style.height = randomSize + "px";
+element.style.left = randomleft + "px";
+element.style.top = randomright + "px";
+element.style.opacity = randomOpacity;
+i++
+}
+}
+
+function clearBother() {
+var contain = document.querySelector(".container");
+let inputs = document.getElementById("inputValue");
+let btn = document.getElementById("btn");
+let inputValue = inputs.value;
+let fader = document.createElement("div");
+fader.classList.add("fader");
+fader.innerHTML = inputValue;
+document.getElementById("inputValue").value = "";
+contain.appendChild(fader);
+btn.style.cssText = "opacity: 0; pointer-events: none;";
+inputs.style.cssText = "opacity: 0; pointer-events: none;";
+let apperAgain = setTimeout(apAgain, 1000*60);
+
+function apAgain() {
+btn.style.cssText = "opacity: 1; pointer-events: all;";
+inputs.style.cssText = "opacity: 1; pointer-events: all;";
+}
+}
+
+  </script>
+
+ </body>
+
+</html>
